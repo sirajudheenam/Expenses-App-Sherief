@@ -1,0 +1,38 @@
+export const datas = [
+  {
+    id: 1,
+    name: "Tickets",
+    category: "Movies",
+    date: new Date().toLocaleDateString(),
+    amt: "INR 800",
+    update: "Just Now",
+    create: "Sherief",
+  },
+  {
+    id: 2,
+    name: "Tablets",
+    category: "Health",
+    date: new Date().toLocaleDateString(),
+    amt: "INR 1200",
+    update: "Just Now",
+    create: "Ibunsali",
+  },
+  {
+    id: 3,
+    name: "Fees",
+    category: "Education",
+    date: new Date().toLocaleDateString(),
+    amt: "INR 8000",
+    update: "Just Now",
+    create: "Arsath",
+  },
+  {
+    id: 4,
+    name: "Horry Porter",
+    category: "Books",
+    date: new Date().toLocaleDateString(),
+    amt: "INR 500",
+    update: "Just Now",
+    create: "Sherief",
+  },
+];

@@ -1,0 +1,245 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: 1.1;
+  font-family: "Inter", sans-serif;
+}
+
+main {
+  width: 900px;
+  margin: 30px auto;
+}
+.expense__container {
+  width: 100%;
+  border-radius: 6px;
+  border: 3px solid #000;
+  background-color: #fff7fc;
+}
+
+.expense__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px;
+}
+
+.expense__header--options {
+  padding: 0 9px;
+  display: flex;
+  gap: 8px;
+}
+
+.expense__header--title {
+  font-weight: 600;
+  font-size: 19px;
+  letter-spacing: 1px;
+}
+
+.btn--filter {
+  border: 3px solid #000;
+  padding: 5px;
+  font-weight: 500;
+  background: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="text"]::placeholder {
+  color: #000;
+}
+
+.search--name {
+  border: 3px solid #000;
+  padding: 5px;
+  font-weight: 500;
+  background: none;
+  border-radius: 4px;
+}
+
+/* For new expense container  */
+.newExpense__container {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  top: 0;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  transition: all 2s;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Login form  */
+
+.login__container {
+  border: 3px solid #000;
+  width: 470px;
+  margin: 100px auto;
+  border-radius: 4px;
+}
+
+.btnLogin__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+.input--login {
+  background-color: #d6dac8;
+  border: none;
+  height: 40px;
+  border-radius: 5px;
+  padding-left: 15px;
+  font-weight: 500;
+}
+
+.input--login::placeholder {
+  font-weight: 500;
+}
+.btn--login {
+  background-color: green;
+  border: 3px solid green;
+  padding: 5px;
+  width: 160px;
+  height: 40px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+
+  letter-spacing: 2px;
+}
+
+.btn--create {
+  background-color: green;
+  border: 3px solid green;
+  padding: 5px;
+  width: 160px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+
+  letter-spacing: 2px;
+}
+
+.expense__table {
+  padding: 12px;
+}
+
+.btn--del,
+.btn--edit {
+  width: 20px;
+  height: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+
+thead {
+  background-color: grey;
+  color: #000;
+  font-size: 18px;
+}
+
+thead td {
+  padding: 14px;
+  border: 2px solid #000;
+}
+
+tbody td {
+  padding: 14px;
+  background-color: #fff;
+  border: 2px solid #000;
+}
+
+.popup__add {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+
+  width: 460px;
+  /* border: 3px solid #000; */
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 6px;
+  transition: all 2s;
+}
+
+.popup__edit {
+  display: flex;
+  flex-direction: column;
+
+  width: 460px;
+  border: 3px solid #000;
+  margin-top: 50px;
+  padding: 20px;
+  border-radius: 6px;
+}
+
+label {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 4px;
+}
+
+.input--add {
+  background-color: #d6dac8;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  padding-left: 15px;
+  font-weight: 500;
+}
+
+.input--add::placeholder {
+  font-weight: 500;
+}
+
+/* .input--add:focus {
+  border-color: red;
+} */
+
+.add-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+.btn--crtExp {
+  width: 145px;
+  padding: 7px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: green;
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn--cancle {
+  width: 105px;
+  padding: 7px 0;
+  border-radius: 5px;
+  border: none;
+  background-color: grey;
+  color: #fff;
+  cursor: pointer;
+}
+
+.table--btn {
+  display: flex;
+  gap: 12px;
+}
