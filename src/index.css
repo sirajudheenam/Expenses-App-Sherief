@@ -77,6 +77,13 @@ input[type="text"]::placeholder {
   justify-content: center;
 }
 
+.close__button {
+  display: flex;
+  background-color: transparent;
+  border: 0 solid transparent;
+  justify-content: flex-end;
+}
+
 /* Login form  */
 
 .login__container {

@@ -1,33 +1,37 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ExpenseHeader from './ExpensesHeader'
 import NewExpenseForm from './NewExpenseForm';
 import ExpenseList from './ExpenseList';
 
+import { 
+  sortByCategoryAscending, 
+  sortByCategoryDescending, 
+  sortByDateAscending, 
+  sortByDateDescending,
+  sortByNameAscending,
+  sortByNameDescending } from '../utils/sortData';
+
 export default function ExpenseContainer({ data, setData }) {
-    const [newExpense, setNewExpense] = useState(false);
-    const [editExpense, setEditExpense] = useState(false);
-    const [dataToEdit, setDataToEdit] = useState({});
-  
-    const handleSort = () => {
-    
-      const parseDate = (dateStr) => {
-        return new Date(dateStr);
-      };
-  
-   
-      const sortByDateAscending = (data) => {
-        return data.slice().sort((a, b) => {
-          const dateA = parseDate(a.date);
-          const dateB = parseDate(b.date);
-          return dateA - dateB;
-        });
-      };
-  
-      setData((data) => {
-        return sortByDateAscending(data);
-      });
+  const [newExpense, setNewExpense] = useState(false);
+  const [editExpense, setEditExpense] = useState(false);
+  const [dataToEdit, setDataToEdit] = useState({});
+
+  useEffect(() => {
+    const handleEscKey = (event) => {
+      if (event.key === 'Escape') {
+        setNewExpense(false)
+      }
     };
-  
+
+    document.addEventListener('keydown', handleEscKey);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscKey);
+    };
+  }, []); // Empty dependency array to run effect only once
+
+
+
     return (
       <>
         {newExpense && (
@@ -42,9 +46,12 @@ export default function ExpenseContainer({ data, setData }) {
         )}
         <div className="expense__container">
           <ExpenseHeader
+            data={data}
+            setData={setData}
             newExpense={newExpense}
             setNewExpense={setNewExpense}
-            handleSort={handleSort}
+            sortByDateAscending={sortByDateAscending} 
+            sortByDateDescending={sortByDateDescending}
           />
           <ExpenseList
             data={data}
@@ -53,6 +60,13 @@ export default function ExpenseContainer({ data, setData }) {
             setDataToEdit={setDataToEdit}
             editExpense={editExpense}
             setEditExpense={setEditExpense}
+            sortByCategoryAscending={sortByCategoryAscending}
+            sortByCategoryDescending={sortByCategoryDescending}
+            sortByDateAscending={sortByDateAscending}
+            sortByDateDescending={sortByDateDescending}
+            sortByNameAscending={sortByNameAscending}
+            sortByNameDescending={sortByNameDescending}
+
           />
         </div>
       </>

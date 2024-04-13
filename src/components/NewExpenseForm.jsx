@@ -1,11 +1,4 @@
 import { useState } from "react";
-import {
-  formatDateFromData,
-  formatFromDatePickerToDisplay,
-  dateToDisplay,
-
-  dateIsValid
-} from "../utils/dateFormat";
 export default function NewExpenseForm({
   data,
   setData,
@@ -23,21 +16,11 @@ export default function NewExpenseForm({
   });
 
   const trackExpenseChange = (e) => {
-    if (e.target.name === 'date') {
-      console.log(`Entered Date is ? : ${e.target.value}`);
-      console.log("Entered Date Valid ? : ", dateIsValid(e.target.value));
-      console.log("Date Parsed: ", Date.parse(e.target.value)); // in seconds format
+    if (e.target.name === 'date') {// in seconds format
     }
     setFormExp({ ...formExp, [e.target.name]: e.target.value });
   };
 
-  const handleChangeDate = (value) => {
-    // console.log("Changed Date Value: ", value);
-    // console.log("Changed Date Valid?: ", dateIsValid(value));
-
-    const formattedDate = formatFromDatePickerToDisplay(value);
-    setFormExp({ ...formExp, date: formattedDate });
-  };
 
   const changeSubmit = (e) => {
     e.preventDefault();
@@ -51,6 +34,7 @@ export default function NewExpenseForm({
   return (
     <div className="newExpense__container">
       <form className="popup__add" onSubmit={changeSubmit}>
+      <button onClick={()=>setNewExpense(false)} className="close__button">X</button>
         <p className="expense__header--title">Create New Expense</p>
         <label>Name</label>
         <input

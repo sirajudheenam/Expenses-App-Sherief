@@ -1,15 +1,23 @@
-export default function ExpenseHeader({ newExpense, setNewExpense, handleSort }) {
+export default function ExpenseHeader({ data, setData, newExpense, setNewExpense, sortByDateAscending, sortByDateDescending }) {
     const handleNewExpense = () => {
       setNewExpense(true);
-      console.log("New Expense: ", newExpense);
     };
   
+    const handleSortAsc = (data) => {
+      setData(sortByDateAscending(data));
+    }
+    const handleSortDesc = (data) => {
+      setData(sortByDateDescending(data));
+    }
     return (
       <div className="expense__header">
         <p className="expense__header--title">MY EXPENSE MANAGER</p>
         <div className="expense__header--options">
-          <button className="btn--filter" onClick={() => handleSort()}>
-            Filter by Date of Expense
+          <button className="btn--filter" onClick={() => handleSortAsc(data)}>
+            Date Asc
+          </button>
+          <button className="btn--filter" onClick={() => handleSortDesc(data)}>
+            Date Desc
           </button>
           <input
             type="text"

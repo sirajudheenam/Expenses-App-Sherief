@@ -1,19 +1,6 @@
 import EditExpenseForm from './EditExpenseForm';
-import {
-  formatDateFromData,
-  formatFromDatePickerToDisplay,
-  unixTimeZero,
-  javaScriptRelease,
-  dateIsValid,
-  dateToDisplay
-} from '../utils/dateFormat';
-import {
-  sortByNameDescending,
-  sortByNameAscending,
-  sortByCategoryAscending,
-  sortByCategoryDescending
-} from '../utils/sortData';
-import { useEffect, useState } from 'react';
+import { formatFromDatePickerToDisplay } from '../utils/dateFormat';
+import { useCallback, useEffect, useState } from 'react';
 export default function ExpenseList({
   data,
   setData,
@@ -21,12 +8,11 @@ export default function ExpenseList({
   setDataToEdit,
   editExpense,
   setEditExpense,
+  sortByNameDescending,
+  sortByNameAscending,
+  sortByCategoryAscending,
+  sortByCategoryDescending
 }) {
-
-  // console.log("unixTimeZero: ", unixTimeZero);
-  // console.log("javaScriptRelease: ", javaScriptRelease);
-  // console.log("1: Date - Valid? ", dateIsValid(data[0].date));
-
   const [sortedData, setSortedData] = useState(data);
   const [sortedByNameAscending, setSortedByNameAscending] = useState(true);
   const [sortedByNameDescending, setSortedByNameDescending] = useState(false);
@@ -34,8 +20,6 @@ export default function ExpenseList({
   const [sortedByCategoryDescending, setSortedByCategoryDescending] = useState(false);
 
   const handleEditRow = (exp) => {
-    console.log(`TO EDIT ROW: ${exp}`)
-    console.log(exp)
     setEditExpense(true);
     setDataToEdit(exp);
   };
@@ -61,10 +45,8 @@ export default function ExpenseList({
     setSortedByCategoryDescending((sortByCategoryDescending) => !sortByCategoryDescending);
   };
 
-  useEffect(function() {
-    //change Data Whenever sortedData Changes
-    setData(sortedData);
-  }, [sortedData])
+  const changeData = useCallback( () => setData(sortedData), [sortedData, setData])
+  useEffect(() => changeData(), [changeData]);
 
   return (
     <>
@@ -77,8 +59,7 @@ export default function ExpenseList({
           setDataToEdit={setDataToEdit}
         />
       )}
-      {
-        data.length > 0 &&
+      {data.length > 0 &&
         <div className="expense__table">
           <table>
             <thead>
@@ -107,7 +88,7 @@ export default function ExpenseList({
                     <td>{exp.name}</td>
                     <td>{exp.category}</td>
                     {/* MM-DD-YYYY to DD-MMM-YYYY */}
-                    {/* // to display in the list */}
+                    {/* // to display in the list table */}
                     <td>{formatFromDatePickerToDisplay(exp.date)}</td>
                     {/* <td>{exp.date}</td> */}
                     <td>{exp.amt}</td>
