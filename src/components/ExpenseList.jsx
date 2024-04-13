@@ -1,6 +1,7 @@
 import EditExpenseForm from './EditExpenseForm';
 import { formatFromDatePickerToDisplay } from '../utils/dateFormat';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+
 export default function ExpenseList({
   data,
   setData,
@@ -14,39 +15,34 @@ export default function ExpenseList({
   sortByCategoryDescending
 }) {
   const [sortedData, setSortedData] = useState(data);
-  const [sortedByNameAscending, setSortedByNameAscending] = useState(true);
-  const [sortedByNameDescending, setSortedByNameDescending] = useState(false);
-  const [sortedByCategoryAscending, setSortedByCategoryAscending] = useState(true);
-  const [sortedByCategoryDescending, setSortedByCategoryDescending] = useState(false);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
 
   const handleEditRow = (exp) => {
     setEditExpense(true);
     setDataToEdit(exp);
   };
+
   const handleDeleteRow = (targetIndex) => {
-    setSortedData(
-      sortedData.filter((_, i) => {
-        return i !== targetIndex;
-      })
-    );
+    setSortedData(sortedData.filter((_, i) => i !== targetIndex));
   };
 
-  const handleSortByName = (sortedData) => {
-    const tempData = sortedByNameDescending ? sortByNameDescending(sortedData) : sortByNameAscending(sortedData);
-    setSortedData(tempData);
-    setSortedByNameAscending((sortByNameAscending) => !sortByNameAscending);
-    setSortedByNameDescending((sortByNameDescending) => !sortByNameDescending);
+  const handleSort = (key) => {
+    let direction = 'ascending';
+    if (sortConfig.key === key && sortConfig.direction === 'ascending') {
+      direction = 'descending';
+    }
+
+    const sorted = key === 'name'
+      ? (direction === 'ascending' ? sortByNameAscending(sortedData) : sortByNameDescending(sortedData))
+      : (direction === 'ascending' ? sortByCategoryAscending(sortedData) : sortByCategoryDescending(sortedData));
+
+    setSortedData(sorted);
+    setSortConfig({ key, direction });
   };
 
-  const handleSortByCategory = (sortedData) => {
-    const tempData = sortedByCategoryDescending ? sortByCategoryDescending(sortedData) : sortByCategoryAscending(sortedData);
-    setSortedData(tempData);
-    setSortedByCategoryAscending((sortByCategoryAscending) => !sortByCategoryAscending);
-    setSortedByCategoryDescending((sortByCategoryDescending) => !sortByCategoryDescending);
-  };
-
-  const changeData = useCallback( () => setData(sortedData), [sortedData, setData])
-  useEffect(() => changeData(), [changeData]);
+  useEffect(() => {
+    setData(sortedData);
+  }, [sortedData, setData]);
 
   return (
     <>
@@ -59,64 +55,61 @@ export default function ExpenseList({
           setDataToEdit={setDataToEdit}
         />
       )}
-      {data.length > 0 &&
+      {data.length > 0 && (
         <div className="expense__table">
           <table>
             <thead>
               <tr>
-                <td>Name
-                  <button name="btnSortByName" onClick={() => handleSortByName(sortedData)}>
+                <th>
+                  Name
+                  <button name="btnSortByName" onClick={() => handleSort('name')}>
                     <img src="/img/sort_a_z.png" alt="sortbyNamec" className='icon-asec' />
                   </button>
-                </td>
-                <td>Category
-                  <button name="btnSortByCategory" onClick={() => handleSortByCategory(sortedData)}>
+                </th>
+                <th>
+                  Category
+                  <button name="btnSortByCategory" onClick={() => handleSort('category')}>
                     <img src="/img/sort_a_z.png" alt="sortByCategory" className='icon-asec' />
                   </button>
-                </td>
-                <td>Date of Expense</td>
-                <td>Amount</td>
-                <td>Updated At</td>
-                <td>Created by</td>
-                <td>Controls</td>
+                </th>
+                <th>Date of Expense</th>
+                <th>Amount</th>
+                <th>Updated At</th>
+                <th>Created by</th>
+                <th>Controls</th>
               </tr>
             </thead>
             <tbody id="tableBody">
-              {data && data.map(function (exp, i) {
-                return (
-                  <tr key={i}>
-                    <td>{exp.name}</td>
-                    <td>{exp.category}</td>
-                    {/* MM-DD-YYYY to DD-MMM-YYYY */}
-                    {/* // to display in the list table */}
-                    <td>{formatFromDatePickerToDisplay(exp.date)}</td>
-                    {/* <td>{exp.date}</td> */}
-                    <td>{exp.amt}</td>
-                    <td>{exp.update}</td>
-                    <td>{exp.create}</td>
-                    <td>
-                      <div className="table--btn">
-                        <img
-                          src="/img/pencil.png"
-                          alt="edit"
-                          className="btn--edit"
-                          onClick={() => handleEditRow(exp)}
-                        />
-                        <img
-                          src="/img/delete.png"
-                          alt="btn-del"
-                          className="btn--del"
-                          onClick={() => handleDeleteRow(i)}
-                        />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              {sortedData.map((exp, i) => (
+                <tr key={i}>
+                  <td>{exp.name}</td>
+                  <td>{exp.category}</td>
+                  <td>{formatFromDatePickerToDisplay(exp.date)}</td>
+                  <td>{exp.amt}</td>
+                  <td>{exp.update}</td>
+                  <td>{exp.create}</td>
+                  <td>
+                    <div className="table--btn">
+                      <img
+                        src="/img/pencil.png"
+                        alt="edit"
+                        className="btn--edit"
+                        onClick={() => handleEditRow(exp)}
+                      />
+                      <img
+                        src="/img/delete.png"
+                        alt="btn-del"
+                        className="btn--del"
+                        onClick={() => handleDeleteRow(i)}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
-      }
+      )}
     </>
   );
 }
