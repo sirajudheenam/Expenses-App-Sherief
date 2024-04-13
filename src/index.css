@@ -12,6 +12,7 @@ main {
   width: 900px;
   margin: 30px auto;
 }
+
 .expense__container {
   width: 100%;
   border-radius: 6px;
@@ -93,6 +94,7 @@ input[type="text"]::placeholder {
   margin-top: 20px;
   margin-bottom: 25px;
 }
+
 .input--login {
   background-color: #d6dac8;
   border: none;
@@ -105,6 +107,7 @@ input[type="text"]::placeholder {
 .input--login::placeholder {
   font-weight: 500;
 }
+
 .btn--login {
   background-color: green;
   border: 3px solid green;
@@ -219,7 +222,7 @@ label {
   margin-top: 25px;
 }
 
-.btn--crtExp {
+.btn--createExpense {
   width: 145px;
   padding: 7px 0;
   border-radius: 5px;
@@ -229,7 +232,7 @@ label {
   cursor: pointer;
 }
 
-.btn--cancle {
+.btn--cancel {
   width: 105px;
   padding: 7px 0;
   border-radius: 5px;
@@ -242,4 +245,52 @@ label {
 .table--btn {
   display: flex;
   gap: 12px;
+}
+
+.item {
+  margin: 1em;
+  padding: 0.5em;
+  width: 110px;
+  min-width: 0;
+  background-color: #1b5385;
+  color: white;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+
+/* Large */
+.navigation {
+  display: flex;
+  flex-flow: row wrap;
+  /* This aligns items to the end line on main-axis */
+  justify-content: flex-end;
+
+  background-color: #7bd30f;
+  resize: horizontal;
+  overflow: hidden;
+  margin: 1em;
+
+}
+
+/* Medium screens */
+@media all and (max-width: 800px) {
+  .navigation {
+    /* When on medium sized screens, we center it by evenly distributing empty space around items */
+    justify-content: space-around;
+  }
+}
+
+/* Small screens */
+@media all and (max-width: 500px) {
+  .navigation {
+    /* On small screens, we are no longer using row direction but column */
+    flex-direction: column;
+  }
+}
+
+.icon-asec,
+.icon-desc {
+  width: 1rem;
+  height: 1rem;
 }
